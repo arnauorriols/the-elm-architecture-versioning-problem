@@ -1,0 +1,77 @@
+var _user$project$A$A2Model = function (a) {
+	return {ctor: 'A2Model', _0: a};
+};
+var _user$project$A$A1Model = function (a) {
+	return {ctor: 'A1Model', _0: a};
+};
+var _user$project$A$init = _user$project$A$A1Model(_user$project$A1$init);
+var _user$project$A$update = F2(
+	function (msg, model) {
+		var _p0 = {ctor: '_Tuple2', _0: msg, _1: model};
+		if (_p0._0.ctor === 'A2Msg') {
+			if (_p0._1.ctor === 'A2Model') {
+				return _user$project$A$A2Model(
+					A2(_user$project$A2$update, _p0._0._0, _p0._1._0));
+			} else {
+				return _elm_lang$core$Native_Utils.crashCase(
+					'A',
+					{
+						start: {line: 29, column: 5},
+						end: {line: 40, column: 61}
+					},
+					_p0)('msg A2 does not belong to model A1');
+			}
+		} else {
+			if (_p0._1.ctor === 'A1Model') {
+				return _user$project$A$A1Model(
+					A2(_user$project$A1$update, _p0._0._0, _p0._1._0));
+			} else {
+				return _elm_lang$core$Native_Utils.crashCase(
+					'A',
+					{
+						start: {line: 29, column: 5},
+						end: {line: 40, column: 61}
+					},
+					_p0)('msg A1 does not belong to model A2');
+			}
+		}
+	});
+var _user$project$A$A2Msg = function (a) {
+	return {ctor: 'A2Msg', _0: a};
+};
+var _user$project$A$A1Msg = function (a) {
+	return {ctor: 'A1Msg', _0: a};
+};
+var _user$project$A$view = F2(
+	function (version, model) {
+		var _p3 = {ctor: '_Tuple2', _0: version, _1: model};
+		_v1_4:
+		do {
+			if (_p3._1.ctor === 'A2Model') {
+				switch (_p3._0) {
+					case 2:
+						return A2(
+							_elm_lang$html$Html$map,
+							_user$project$A$A2Msg,
+							_user$project$A2$view(_p3._1._0));
+					case 1:
+						return _elm_lang$html$Html$text('Oops, requested version 1 but model is version 2!');
+					default:
+						break _v1_4;
+				}
+			} else {
+				switch (_p3._0) {
+					case 1:
+						return A2(
+							_elm_lang$html$Html$map,
+							_user$project$A$A1Msg,
+							_user$project$A1$view(_p3._1._0));
+					case 2:
+						return _elm_lang$html$Html$text('Oops, requested version 2 but model is version 1!');
+					default:
+						break _v1_4;
+				}
+			}
+		} while(false);
+		return _elm_lang$html$Html$text('Requested an unknown version of A');
+	});

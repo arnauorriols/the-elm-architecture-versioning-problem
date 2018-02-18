@@ -1,0 +1,14 @@
+var _user$project$A2$view = function (model) {
+	return _elm_lang$html$Html$text('A2');
+};
+var _user$project$A2$update = F2(
+	function (msg, model) {
+		return model;
+	});
+var _user$project$A2$C2 = {ctor: 'C2'};
+var _user$project$A2$B2 = {ctor: 'B2'};
+var _user$project$A2$A2 = {ctor: 'A2'};
+var _user$project$A2$init = _user$project$A2$A2;
+var _user$project$A2$M3 = {ctor: 'M3'};
+var _user$project$A2$M2 = {ctor: 'M2'};
+var _user$project$A2$M1 = {ctor: 'M1'};
