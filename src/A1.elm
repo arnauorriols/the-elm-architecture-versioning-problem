@@ -1,30 +1,49 @@
 module A1 exposing (Model, init, Msg, update, view)
 
 import Html
+import Html.Attributes
+import Html.Events
 
 
 type Model
-    = A1
-    | B1
-    | C1
+    = Small
+    | Big
 
 
 init : Model
 init =
-    A1
+    Small
 
 
 type Msg
-    = M1
-    | M2
-    | M3
+    = ToggleSize
 
 
 update : Msg -> Model -> Model
 update msg model =
-    model
+    case msg of
+        ToggleSize ->
+            case model of
+                Small ->
+                    Big
+
+                Big ->
+                    Small
 
 
 view : Model -> Html.Html Msg
 view model =
-    Html.text "A1"
+    let
+        fontSize =
+            case model of
+                Small ->
+                    "1rem"
+
+                Big ->
+                    "2rem"
+    in
+        Html.span
+            [ Html.Attributes.style [ ( "font-size", fontSize ) ]
+            , Html.Events.onClick ToggleSize
+            ]
+            [ Html.text "A1" ]
