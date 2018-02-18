@@ -1,30 +1,50 @@
 module A2 exposing (Model, init, Msg, update, view)
 
 import Html
+import Html.Attributes
+import Html.Events
 
 
 type Model
-    = A2
-    | B2
-    | C2
+    = Red
+    | Blue
 
 
 init : Model
 init =
-    A2
+    Red
 
 
 type Msg
-    = M1
-    | M2
-    | M3
+    = ToggleColor
 
 
 update : Msg -> Model -> Model
 update msg model =
-    model
+    case msg of
+        ToggleColor ->
+            case model of
+                Red ->
+                    Blue
+
+                Blue ->
+                    Red
 
 
 view : Model -> Html.Html Msg
 view model =
-    Html.text "A2"
+    let
+        backgroundColor =
+            case model of
+                Red ->
+                    "red"
+
+                Blue ->
+                    "blue"
+    in
+        Html.span
+            [ Html.Attributes.style [ ( "background-color", backgroundColor ) ]
+            , Html.Events.onClick ToggleColor
+            ]
+            [ Html.text "A2"
+            ]
