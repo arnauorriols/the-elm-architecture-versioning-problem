@@ -31,8 +31,12 @@ update msg model =
                     Red
 
 
-view : Model -> Html.Html Msg
-view model =
+type alias Config msg =
+    { toMsg : Model -> msg }
+
+
+view : Config msg -> Model -> Html.Html msg
+view config model =
     let
         backgroundColor =
             case model of
@@ -44,7 +48,7 @@ view model =
     in
         Html.span
             [ Html.Attributes.style [ ( "background-color", backgroundColor ) ]
-            , Html.Events.onClick ToggleColor
+            , Html.Events.onClick <| config.toMsg <| update ToggleColor model
             ]
             [ Html.text "A2"
             ]

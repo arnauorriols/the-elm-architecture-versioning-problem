@@ -8231,6 +8231,9 @@ var _elm_lang$html$Html_Events$Options = F2(
 	function (a, b) {
 		return {stopPropagation: a, preventDefault: b};
 	});
+var _user$project$A1$Config = function (a) {
+	return {toMsg: a};
+};
 var _user$project$A1$Big = {ctor: 'Big'};
 var _user$project$A1$Small = {ctor: 'Small'};
 var _user$project$A1$init = _user$project$A1$Small;
@@ -8245,36 +8248,42 @@ var _user$project$A1$update = F2(
 		}
 	});
 var _user$project$A1$ToggleSize = {ctor: 'ToggleSize'};
-var _user$project$A1$view = function (model) {
-	var fontSize = function () {
-		var _p2 = model;
-		if (_p2.ctor === 'Small') {
-			return '1rem';
-		} else {
-			return '2rem';
-		}
-	}();
-	return A2(
-		_elm_lang$html$Html$span,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$style(
-				{
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'font-size', _1: fontSize},
-					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Events$onClick(_user$project$A1$ToggleSize),
-				_1: {ctor: '[]'}
+var _user$project$A1$view = F2(
+	function (config, model) {
+		var fontSize = function () {
+			var _p2 = model;
+			if (_p2.ctor === 'Small') {
+				return '1rem';
+			} else {
+				return '2rem';
 			}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text('A1'),
-			_1: {ctor: '[]'}
-		});
+		}();
+		return A2(
+			_elm_lang$html$Html$span,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'font-size', _1: fontSize},
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Events$onClick(
+						config.toMsg(
+							A2(_user$project$A1$update, _user$project$A1$ToggleSize, model))),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('A1'),
+				_1: {ctor: '[]'}
+			});
+	});
+var _user$project$A2$Config = function (a) {
+	return {toMsg: a};
 };
 var _user$project$A2$Blue = {ctor: 'Blue'};
 var _user$project$A2$Red = {ctor: 'Red'};
@@ -8290,37 +8299,40 @@ var _user$project$A2$update = F2(
 		}
 	});
 var _user$project$A2$ToggleColor = {ctor: 'ToggleColor'};
-var _user$project$A2$view = function (model) {
-	var backgroundColor = function () {
-		var _p2 = model;
-		if (_p2.ctor === 'Red') {
-			return 'red';
-		} else {
-			return 'blue';
-		}
-	}();
-	return A2(
-		_elm_lang$html$Html$span,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$style(
-				{
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'background-color', _1: backgroundColor},
-					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Events$onClick(_user$project$A2$ToggleColor),
-				_1: {ctor: '[]'}
+var _user$project$A2$view = F2(
+	function (config, model) {
+		var backgroundColor = function () {
+			var _p2 = model;
+			if (_p2.ctor === 'Red') {
+				return 'red';
+			} else {
+				return 'blue';
 			}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text('A2'),
-			_1: {ctor: '[]'}
-		});
-};
+		}();
+		return A2(
+			_elm_lang$html$Html$span,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'background-color', _1: backgroundColor},
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Events$onClick(
+						config.toMsg(
+							A2(_user$project$A2$update, _user$project$A2$ToggleColor, model))),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('A2'),
+				_1: {ctor: '[]'}
+			});
+	});
 var _user$project$A$A2Model = function (a) {
 	return {ctor: 'A2Model', _0: a};
 };
@@ -8330,33 +8342,11 @@ var _user$project$A$A1Model = function (a) {
 var _user$project$A$init = _user$project$A$A1Model(_user$project$A1$init);
 var _user$project$A$update = F2(
 	function (msg, model) {
-		var _p0 = {ctor: '_Tuple2', _0: msg, _1: model};
-		if (_p0._0.ctor === 'A2Msg') {
-			if (_p0._1.ctor === 'A2Model') {
-				return _user$project$A$A2Model(
-					A2(_user$project$A2$update, _p0._0._0, _p0._1._0));
-			} else {
-				return _elm_lang$core$Native_Utils.crashCase(
-					'A',
-					{
-						start: {line: 29, column: 5},
-						end: {line: 40, column: 61}
-					},
-					_p0)('msg A2 does not belong to model A1');
-			}
+		var _p0 = msg;
+		if (_p0.ctor === 'A1Msg') {
+			return _user$project$A$A1Model(_p0._0);
 		} else {
-			if (_p0._1.ctor === 'A1Model') {
-				return _user$project$A$A1Model(
-					A2(_user$project$A1$update, _p0._0._0, _p0._1._0));
-			} else {
-				return _elm_lang$core$Native_Utils.crashCase(
-					'A',
-					{
-						start: {line: 29, column: 5},
-						end: {line: 40, column: 61}
-					},
-					_p0)('msg A1 does not belong to model A2');
-			}
+			return _user$project$A$A2Model(_p0._0);
 		}
 	});
 var _user$project$A$A2Msg = function (a) {
@@ -8367,30 +8357,36 @@ var _user$project$A$A1Msg = function (a) {
 };
 var _user$project$A$view = F2(
 	function (version, model) {
-		var _p3 = {ctor: '_Tuple2', _0: version, _1: model};
+		var _p1 = {ctor: '_Tuple2', _0: version, _1: model};
 		_v1_4:
 		do {
-			if (_p3._1.ctor === 'A2Model') {
-				switch (_p3._0) {
+			if (_p1._1.ctor === 'A2Model') {
+				switch (_p1._0) {
 					case 2:
 						return A2(
-							_elm_lang$html$Html$map,
-							_user$project$A$A2Msg,
-							_user$project$A2$view(_p3._1._0));
+							_user$project$A2$view,
+							{toMsg: _user$project$A$A2Msg},
+							_p1._1._0);
 					case 1:
-						return _elm_lang$html$Html$text('Oops, requested version 1 but model is version 2!');
+						return A2(
+							_user$project$A1$view,
+							{toMsg: _user$project$A$A1Msg},
+							_user$project$A1$init);
 					default:
 						break _v1_4;
 				}
 			} else {
-				switch (_p3._0) {
+				switch (_p1._0) {
 					case 1:
 						return A2(
-							_elm_lang$html$Html$map,
-							_user$project$A$A1Msg,
-							_user$project$A1$view(_p3._1._0));
+							_user$project$A1$view,
+							{toMsg: _user$project$A$A1Msg},
+							_p1._1._0);
 					case 2:
-						return _elm_lang$html$Html$text('Oops, requested version 2 but model is version 1!');
+						return A2(
+							_user$project$A2$view,
+							{toMsg: _user$project$A$A2Msg},
+							_user$project$A2$init);
 					default:
 						break _v1_4;
 				}

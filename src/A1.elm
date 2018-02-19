@@ -31,8 +31,12 @@ update msg model =
                     Small
 
 
-view : Model -> Html.Html Msg
-view model =
+type alias Config msg =
+    { toMsg : Model -> msg }
+
+
+view : Config msg -> Model -> Html.Html msg
+view config model =
     let
         fontSize =
             case model of
@@ -44,6 +48,6 @@ view model =
     in
         Html.span
             [ Html.Attributes.style [ ( "font-size", fontSize ) ]
-            , Html.Events.onClick ToggleSize
+            , Html.Events.onClick <| config.toMsg <| update ToggleSize model
             ]
             [ Html.text "A1" ]
