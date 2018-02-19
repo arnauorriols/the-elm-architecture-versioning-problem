@@ -6,17 +6,12 @@ import Html.Attributes
 import A
 
 
--- import B
-
-
 type alias Version =
     Int
 
 
 type alias Model =
     { a : A.Model
-
-    -- , b : B.Model
     , version : Version
     , error : String
     }
@@ -25,8 +20,6 @@ type alias Model =
 init : Model
 init =
     { a = A.init
-
-    -- , b = B.init
     , version = 1
     , error = ""
     }
@@ -35,10 +28,6 @@ init =
 type Msg
     = AMsg A.Msg
     | ChangeVersion String
-
-
-
--- | BMsg B.Msg
 
 
 update : Msg -> Model -> Model
@@ -57,11 +46,6 @@ update msg model =
 
                 version ->
                     { model | error = "Version '" ++ version ++ "' is not a valid version number" }
-
-
-
--- BMsg bMsg ->
---     B.update bMsg model.b
 
 
 view : Model -> Html.Html Msg
