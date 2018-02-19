@@ -1,59 +1,125 @@
 module A exposing (Model, init, Msg, update, view)
 
 import Html
-import A1
-import A2
+import Html.Attributes
+import Html.Events
 
 
 type alias Version =
     Int
 
 
-type Model
-    = A1Model A1.Model
-    | A2Model A2.Model
+type Size
+    = Small
+    | Big
+
+
+type Color
+    = Red
+    | Blue
+
+
+type alias Model =
+    { size : Size
+    , color : Color
+    }
 
 
 init : Model
 init =
-    A1Model A1.init
+    { size = Small
+    , color = Red
+    }
 
 
 type Msg
-    = A1Msg A1.Msg
-    | A2Msg A2.Msg
+    = ToggleColor
+    | ToggleSize
 
 
 update : Msg -> Model -> Model
 update msg model =
-    case ( msg, model ) of
-        ( A1Msg a1Msg, A1Model a1Model ) ->
-            A1.update a1Msg a1Model |> A1Model
+    case msg of
+        ToggleColor ->
+            case model.color of
+                Red ->
+                    { model | color = Blue }
 
-        ( A2Msg a2Msg, A2Model a2Model ) ->
-            A2.update a2Msg a2Model |> A2Model
+                Blue ->
+                    { model | color = Red }
 
-        ( A2Msg _, A1Model _ ) ->
-            Debug.crash "msg A2 does not belong to model A1"
+        ToggleSize ->
+            case model.size of
+                Small ->
+                    { model | size = Big }
 
-        ( A1Msg _, A2Model _ ) ->
-            Debug.crash "msg A1 does not belong to model A2"
+                Big ->
+                    { model | size = Small }
 
 
 view : Version -> Model -> Html.Html Msg
 view version model =
-    case ( version, model ) of
-        ( 1, A1Model a1Model ) ->
-            A1.view a1Model |> Html.map A1Msg
+    case version of
+        1 ->
+            view1 { onClick = ToggleSize } model.size
 
-        ( 2, A2Model a2Model ) ->
-            A2.view a2Model |> Html.map A2Msg
+        2 ->
+            view2 { onClick = ToggleColor } model.color
 
-        ( 1, A2Model a2Model ) ->
-            Html.text "Oops, requested version 1 but model is version 2!"
-
-        ( 2, A1Model a1Model ) ->
-            Html.text "Oops, requested version 2 but model is version 1!"
-
-        ( other, _ ) ->
+        other ->
             Html.text "Requested an unknown version of A"
+
+
+
+-- VERSION 1
+
+
+type alias Config1 msg =
+    { onClick : msg
+    }
+
+
+view1 : Config1 msg -> Size -> Html.Html msg
+view1 config size =
+    let
+        fontSize =
+            case size of
+                Small ->
+                    "1rem"
+
+                Big ->
+                    "2rem"
+    in
+        Html.span
+            [ Html.Attributes.style [ ( "font-size", fontSize ) ]
+            , Html.Events.onClick config.onClick
+            ]
+            [ Html.text "A1" ]
+
+
+
+-- VERSION 2
+
+
+type alias Config2 msg =
+    { onClick : msg
+    }
+
+
+view2 : Config2 msg -> Color -> Html.Html msg
+view2 config color =
+    let
+        backgroundColor =
+            case color of
+                Red ->
+                    "red"
+
+                Blue ->
+                    "blue"
+    in
+        Html.span
+            [ Html.Attributes.style [ ( "background-color", backgroundColor ) ]
+            , Html.Events.onClick config.onClick
+            ]
+            [ Html.text "A2"
+            ]
