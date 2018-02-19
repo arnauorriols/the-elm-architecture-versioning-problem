@@ -8321,127 +8321,136 @@ var _user$project$A2$view = function (model) {
 			_1: {ctor: '[]'}
 		});
 };
-var _user$project$A$A2Model = function (a) {
-	return {ctor: 'A2Model', _0: a};
-};
-var _user$project$A$A1Model = function (a) {
-	return {ctor: 'A1Model', _0: a};
-};
-var _user$project$A$init = _user$project$A$A1Model(_user$project$A1$init);
-var _user$project$A$update = F2(
-	function (msg, model) {
-		var _p0 = {ctor: '_Tuple2', _0: msg, _1: model};
-		if (_p0._0.ctor === 'A2Msg') {
-			if (_p0._1.ctor === 'A2Model') {
-				return _user$project$A$A2Model(
-					A2(_user$project$A2$update, _p0._0._0, _p0._1._0));
-			} else {
-				return _elm_lang$core$Native_Utils.crashCase(
-					'A',
-					{
-						start: {line: 29, column: 5},
-						end: {line: 40, column: 61}
-					},
-					_p0)('msg A2 does not belong to model A1');
-			}
-		} else {
-			if (_p0._1.ctor === 'A1Model') {
-				return _user$project$A$A1Model(
-					A2(_user$project$A1$update, _p0._0._0, _p0._1._0));
-			} else {
-				return _elm_lang$core$Native_Utils.crashCase(
-					'A',
-					{
-						start: {line: 29, column: 5},
-						end: {line: 40, column: 61}
-					},
-					_p0)('msg A1 does not belong to model A2');
-			}
-		}
-	});
-var _user$project$A$A2Msg = function (a) {
-	return {ctor: 'A2Msg', _0: a};
-};
-var _user$project$A$A1Msg = function (a) {
-	return {ctor: 'A1Msg', _0: a};
-};
-var _user$project$A$view = F2(
-	function (version, model) {
-		var _p3 = {ctor: '_Tuple2', _0: version, _1: model};
-		_v1_4:
-		do {
-			if (_p3._1.ctor === 'A2Model') {
-				switch (_p3._0) {
-					case 2:
-						return A2(
-							_elm_lang$html$Html$map,
-							_user$project$A$A2Msg,
-							_user$project$A2$view(_p3._1._0));
-					case 1:
-						return _elm_lang$html$Html$text('Oops, requested version 1 but model is version 2!');
-					default:
-						break _v1_4;
-				}
-			} else {
-				switch (_p3._0) {
-					case 1:
-						return A2(
-							_elm_lang$html$Html$map,
-							_user$project$A$A1Msg,
-							_user$project$A1$view(_p3._1._0));
-					case 2:
-						return _elm_lang$html$Html$text('Oops, requested version 2 but model is version 1!');
-					default:
-						break _v1_4;
-				}
-			}
-		} while(false);
-		return _elm_lang$html$Html$text('Requested an unknown version of A');
-	});
-var _user$project$Main$update = F2(
-	function (msg, model) {
-		var _p0 = msg;
-		if (_p0.ctor === 'AMsg') {
-			return _elm_lang$core$Native_Utils.update(
-				model,
-				{
-					a: A2(_user$project$A$update, _p0._0, model.a)
-				});
-		} else {
-			var _p1 = _p0._0;
-			switch (_p1) {
-				case '1':
-					return _elm_lang$core$Native_Utils.update(
-						model,
-						{version: 1, error: ''});
-				case '2':
-					return _elm_lang$core$Native_Utils.update(
-						model,
-						{version: 2, error: ''});
-				default:
-					return _elm_lang$core$Native_Utils.update(
-						model,
-						{
-							error: A2(
-								_elm_lang$core$Basics_ops['++'],
-								'Version \'',
-								A2(_elm_lang$core$Basics_ops['++'], _p1, '\' is not a valid version number'))
-						});
-			}
-		}
-	});
-var _user$project$Main$init = {a: _user$project$A$init, version: 1, error: ''};
 var _user$project$Main$Model = F3(
 	function (a, b, c) {
 		return {a: a, version: b, error: c};
 	});
+var _user$project$Main$A2Model = function (a) {
+	return {ctor: 'A2Model', _0: a};
+};
+var _user$project$Main$A1Model = function (a) {
+	return {ctor: 'A1Model', _0: a};
+};
+var _user$project$Main$init = {
+	a: _user$project$Main$A1Model(_user$project$A1$init),
+	version: 1,
+	error: ''
+};
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p0 = {ctor: '_Tuple2', _0: msg, _1: model.a};
+		switch (_p0._0.ctor) {
+			case 'A1Msg':
+				if (_p0._1.ctor === 'A1Model') {
+					return _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							a: _user$project$Main$A1Model(
+								A2(_user$project$A1$update, _p0._0._0, _p0._1._0))
+						});
+				} else {
+					return _elm_lang$core$Native_Utils.crashCase(
+						'Main',
+						{
+							start: {line: 53, column: 5},
+							end: {line: 75, column: 100}
+						},
+						_p0)('Received msg for A1 but state is A2');
+				}
+			case 'A2Msg':
+				if (_p0._1.ctor === 'A2Model') {
+					return _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							a: _user$project$Main$A2Model(
+								A2(_user$project$A2$update, _p0._0._0, _p0._1._0))
+						});
+				} else {
+					return _elm_lang$core$Native_Utils.crashCase(
+						'Main',
+						{
+							start: {line: 53, column: 5},
+							end: {line: 75, column: 100}
+						},
+						_p0)('Received msg for A2 but state is A1');
+				}
+			default:
+				var _p3 = _p0._0._0;
+				switch (_p3) {
+					case '1':
+						return _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								version: 1,
+								a: _user$project$Main$A1Model(_user$project$A1$init),
+								error: ''
+							});
+					case '2':
+						return _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								version: 2,
+								a: _user$project$Main$A2Model(_user$project$A2$init),
+								error: ''
+							});
+					default:
+						return _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								error: A2(
+									_elm_lang$core$Basics_ops['++'],
+									'Version \'',
+									A2(_elm_lang$core$Basics_ops['++'], _p3, '\' is not a valid version number'))
+							});
+				}
+		}
+	});
 var _user$project$Main$ChangeVersion = function (a) {
 	return {ctor: 'ChangeVersion', _0: a};
 };
-var _user$project$Main$AMsg = function (a) {
-	return {ctor: 'AMsg', _0: a};
+var _user$project$Main$A2Msg = function (a) {
+	return {ctor: 'A2Msg', _0: a};
+};
+var _user$project$Main$A1Msg = function (a) {
+	return {ctor: 'A1Msg', _0: a};
 };
 var _user$project$Main$view = function (model) {
+	var aView = function () {
+		var _p4 = {ctor: '_Tuple2', _0: model.version, _1: model.a};
+		_v2_2:
+		do {
+			if (_p4.ctor === '_Tuple2') {
+				if (_p4._1.ctor === 'A1Model') {
+					if (_p4._0 === 1) {
+						return A2(
+							_elm_lang$html$Html$map,
+							_user$project$Main$A1Msg,
+							_user$project$A1$view(_p4._1._0));
+					} else {
+						break _v2_2;
+					}
+				} else {
+					if (_p4._0 === 2) {
+						return A2(
+							_elm_lang$html$Html$map,
+							_user$project$Main$A2Msg,
+							_user$project$A2$view(_p4._1._0));
+					} else {
+						break _v2_2;
+					}
+				}
+			} else {
+				break _v2_2;
+			}
+		} while(false);
+		return _elm_lang$core$Native_Utils.crashCase(
+			'Main',
+			{
+				start: {line: 87, column: 13},
+				end: {line: 95, column: 55}
+			},
+			_p4)('Unknown version of A');
+	}();
 	return A2(
 		_elm_lang$html$Html$div,
 		{ctor: '[]'},
@@ -8503,10 +8512,7 @@ var _user$project$Main$view = function (model) {
 					{ctor: '[]'},
 					{
 						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$map,
-							_user$project$Main$AMsg,
-							A2(_user$project$A$view, model.version, model.a)),
+						_0: aView,
 						_1: {ctor: '[]'}
 					}),
 				_1: {ctor: '[]'}
