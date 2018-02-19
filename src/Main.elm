@@ -7,9 +7,6 @@ import A1
 import A2
 
 
--- import B
-
-
 type alias Version =
     Int
 
@@ -21,8 +18,6 @@ type AModel
 
 type alias Model =
     { a : AModel
-
-    -- , b : B.Model
     , version : Version
     , error : String
     }
@@ -31,8 +26,6 @@ type alias Model =
 init : Model
 init =
     { a = A1Model A1.init
-
-    -- , b = B.init
     , version = 1
     , error = ""
     }
@@ -42,10 +35,6 @@ type Msg
     = A1Msg A1.Msg
     | A2Msg A2.Msg
     | ChangeVersion String
-
-
-
--- | BMsg B.Msg
 
 
 update : Msg -> Model -> Model
@@ -73,11 +62,6 @@ update msg model =
 
                 version ->
                     { model | error = "Version '" ++ version ++ "' is not a valid version number" }
-
-
-
--- BMsg bMsg ->
---     B.update bMsg model.b
 
 
 view : Model -> Html.Html Msg
